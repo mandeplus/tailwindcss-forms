@@ -9,7 +9,7 @@ function resolveColor(color, opacityVariableName) {
   return color.replace('<alpha-value>', `var(${opacityVariableName}, 1)`)
 }
 
-const forms = plugin.withOptions(function (options = { strategy: undefined }) {
+const forms = plugin.withOptions(function (options = { strategy: undefined, prefix: '' }) {
   return function ({ addBase, addComponents, theme }) {
     function resolveChevronColor(color, fallback) {
       let resolved = theme(color)
@@ -22,6 +22,7 @@ const forms = plugin.withOptions(function (options = { strategy: undefined }) {
     }
 
     const strategy = options.strategy === undefined ? ['base', 'class'] : [options.strategy]
+    const prefix = options.prefix === undefined ? '' : options.prefix
 
     const rules = [
       {
@@ -351,7 +352,16 @@ const forms = plugin.withOptions(function (options = { strategy: undefined }) {
         .map((rule) => {
           if (rule[strategy] === null) return null
 
-          return { [rule[strategy]]: rule.styles }
+          const ruleSet = {};
+          if (strategy === 'class') {
+            rule.class.forEach(className => {
+              ruleSet[`.${prefix}${className.slice(1)}`] = rule.styles
+            });
+          } else {
+            ruleSet[rule[strategy]] = rule.styles
+          }
+
+          return ruleSet;
         })
         .filter(Boolean)
 
