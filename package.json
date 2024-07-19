@@ -1,10 +1,10 @@
 {
-  "name": "@tailwindcss/forms",
-  "version": "0.5.10",
+  "name": "@mandeplus/tailwindcss-forms",
+  "version": "0.0.1",
   "main": "src/index.js",
   "types": "src/index.d.ts",
   "license": "MIT",
-  "repository": "https://github.com/tailwindlabs/tailwindcss-forms",
+  "repository": "https://github.com/mandeplus/tailwindcss-forms",
   "publishConfig": {
     "access": "public"
   },
