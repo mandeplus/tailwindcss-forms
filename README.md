@@ -1,4 +1,4 @@
-# @tailwindcss/forms
+# @mandeplus/tailwindcss-forms
 
 A plugin that provides a basic reset for form styles that makes form elements easy to override with utilities.
 
@@ -7,7 +7,7 @@ A plugin that provides a basic reset for form styles that makes form elements ea
 Install the plugin from npm:
 
 ```sh
-npm install -D @tailwindcss/forms
+npm install -D @mandeplus/tailwindcss-forms
 ```
 
 Then add the plugin to your `tailwind.config.js` file:
@@ -19,7 +19,7 @@ module.exports = {
     // ...
   },
   plugins: [
-    require('@tailwindcss/forms'),
+    require('@mandeplus/tailwindcss-forms'),
     // ...
   ],
 }
@@ -110,7 +110,7 @@ If generating both the global (base) styles and classes doesn't work well with y
 ```js
 // tailwind.config.js
 plugins: [
-  require("@tailwindcss/forms")({
+  require("@mandeplus/tailwindcss-forms")({
     strategy: 'base', // only generate global styles
     strategy: 'class', // only generate classes
   }),
@@ -120,3 +120,32 @@ plugins: [
 When using the `base` strategy, form elements are styled globally, and no `form-{name}` classes are generated.
 
 When using the `class` strategy, form elements are not styled globally, and instead must be styled using the generated `form-{name}` classes.
+
+### Prefixing your classes
+
+Sometimes using the class strategy can lead to naming conflicts with existing classes in your project. To avoid collisions, you can provide a prefix option. This prepends a custom string to any generated classes, ensuring they won’t clash with other utility or component classes in your codebase. For example:
+
+```js
+// tailwind.config.js
+plugins: [
+  require('@mandeplus/tailwindcss-forms')({
+    strategy: 'class',
+    prefix: 'tw-', // custom prefix
+  }),
+],
+```
+
+With the configuration above, the plugin will generate classes like tw-form-input, tw-form-select, and tw-form-checkbox, instead of form-input, form-select, and form-checkbox.
+
+```html
+<!-- You can now use the prefixed classes in your markup -->
+<input type="email" class="tw-form-input rounded-full px-4 py-3" />
+
+<select class="tw-form-select rounded-full px-4 py-3">
+  <!-- ... -->
+</select>
+
+<input type="checkbox" class="tw-form-checkbox rounded text-pink-500" />
+```
+
+This approach helps keep your classes organized and avoid potential naming collisions with other libraries or existing custom classes.

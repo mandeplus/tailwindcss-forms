@@ -1,4 +1,4 @@
-declare function plugin(options?: Partial<{ strategy: 'base' | 'class' }>): {
+declare function plugin(options?: Partial<{ strategy: 'base' | 'class', prefix : string | undefined }>): {
   handler: () => void
 }
 
